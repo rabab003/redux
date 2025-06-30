@@ -1,74 +1,81 @@
 import logo from "./logo.svg";
 import "./App.css";
+import { useSelector, useDispatch } from "react-redux";
 
 import { useState } from "react";
 
 function App() {
-	const [firstNumberInput, setFirstNumberInput] = useState(null);
-	const [secondNumberInput, setSecondNumberInput] = useState(null);
-	const [result, setResult] = useState(null);
+  const resultState = useSelector((state) => {
+    console.log("the state is from the app component", state);
+    return state.calc.result;
+  });
 
-	// EVENT HANDLERS
-	function handleSumClick() {
-		const result = Number(firstNumberInput) + Number(secondNumberInput);
-		setResult(result);
-	}
+  console.log(resultState);
+  const [firstNumberInput, setFirstNumberInput] = useState(null);
+  const [secondNumberInput, setSecondNumberInput] = useState(null);
+  const [result, setResult] = useState(null);
 
-	function handleSubClick() {
-		const result = Number(firstNumberInput) - Number(secondNumberInput);
-		setResult(result);
-	}
+  // EVENT HANDLERS
+  function handleSumClick() {
+    const result = Number(firstNumberInput) + Number(secondNumberInput);
+    setResult(result);
+  }
 
-	function handleMultClick() {
-		const result = Number(firstNumberInput) * Number(secondNumberInput);
-		setResult(result);
-	}
+  function handleSubClick() {
+    const result = Number(firstNumberInput) - Number(secondNumberInput);
+    setResult(result);
+  }
 
-	function handleDivClick() {
-		const result = Number(firstNumberInput) / Number(secondNumberInput);
-		setResult(result);
-	}
+  function handleMultClick() {
+    const result = Number(firstNumberInput) * Number(secondNumberInput);
+    setResult(result);
+  }
 
-	return (
-		<div className="App">
-			<div
-				style={{
-					height: "100vh",
-					display: "flex",
-					justifyContent: "center",
-					flexDirection: "column",
-					alignItems: "center",
-					background: "teal",
-				}}
-			>
-				{/* FIRST INPUT */}
-				<label>First Number</label>
-				<input
-					value={firstNumberInput}
-					onChange={(e) => setFirstNumberInput(e.target.value)}
-				/>
+  function handleDivClick() {
+    const result = Number(firstNumberInput) / Number(secondNumberInput);
+    setResult(result);
+  }
 
-				{/* SECOND INPUT */}
-				<label>Second Number</label>
-				<input
-					value={secondNumberInput}
-					onChange={(e) => setSecondNumberInput(e.target.value)}
-				/>
+  return (
+    <div className="App">
+      <div
+        style={{
+          height: "100vh",
+          display: "flex",
+          justifyContent: "center",
+          flexDirection: "column",
+          alignItems: "center",
+          background: "teal",
+        }}
+      >
+        {/* FIRST INPUT */}
+        <label>First Number</label>
+        <input
+          value={firstNumberInput}
+          onChange={(e) => setFirstNumberInput(e.target.value)}
+        />
 
-				<button onClick={handleSumClick}>sum</button>
+        {/* SECOND INPUT */}
+        <label>Second Number</label>
+        <input
+          value={secondNumberInput}
+          onChange={(e) => setSecondNumberInput(e.target.value)}
+        />
 
-				<button onClick={handleSubClick}>subtract</button>
+        <button onClick={handleSumClick}>sum</button>
 
-				<button onClick={handleMultClick}>multiply</button>
+        <button onClick={handleSubClick}>subtract</button>
 
-				<button onClick={handleDivClick}>divide</button>
+        <button onClick={handleMultClick}>multiply</button>
 
-				<hr />
+        <button onClick={handleDivClick}>divide</button>
 
-				<h2>{result}</h2>
-			</div>
-		</div>
-	);
+        <hr />
+
+        <h2>{result}</h2>
+      </div>
+    </div>
+  );
 }
 
 export default App;
