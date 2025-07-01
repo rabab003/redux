@@ -1,18 +1,21 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  result: null,
+  result: 100,
 };
 
 export const calcSlice = createSlice({
   name: "calc",
   initialState,
   reducers: {
-    sum: (currentState, action) => {
-      console.log("calling the reducer");
+    add: (currentState, action) => {
+      const sum =
+        Number(action.payload.firstNumberInput) +
+        Number(action.payload.secondNumberInput);
+      currentState.result = sum;
     },
   },
 });
 
-export const { sum } = calcSlice.actions;
+export const { add, printHello } = calcSlice.actions;
 export default calcSlice.reducer;

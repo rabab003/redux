@@ -3,12 +3,14 @@ import "./App.css";
 import { useSelector, useDispatch } from "react-redux";
 
 import { useState } from "react";
+import { add, printHello } from "./features/calcs/calcSlice";
 
 function App() {
   const resultState = useSelector((state) => {
-    console.log("the state is from the app component", state);
     return state.calc.result;
   });
+
+  const dispatch = useDispatch();
 
   console.log(resultState);
   const [firstNumberInput, setFirstNumberInput] = useState(null);
@@ -17,8 +19,12 @@ function App() {
 
   // EVENT HANDLERS
   function handleSumClick() {
-    const result = Number(firstNumberInput) + Number(secondNumberInput);
-    setResult(result);
+    dispatch(
+      add({
+        firstNumberInput: firstNumberInput,
+        secondNumberInput: secondNumberInput,
+      })
+    );
   }
 
   function handleSubClick() {
@@ -72,7 +78,7 @@ function App() {
 
         <hr />
 
-        <h2>{result}</h2>
+        <h2>{resultState}</h2>
       </div>
     </div>
   );
